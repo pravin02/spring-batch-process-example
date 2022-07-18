@@ -17,7 +17,7 @@ import java.nio.charset.StandardCharsets;
 import java.time.LocalTime;
 import java.util.Scanner;
 
-@EqualsAndHashCode
+@EqualsAndHashCode(callSuper = false)
 @Slf4j
 @Primary
 @Qualifier("csvFileProcessor")
@@ -32,12 +32,12 @@ public class CSVFileProcessor extends FileProcessor {
 
     @Override
     public boolean processFile() throws FileNotFoundException {
-        LocalTime startTime = LocalTime.now();
+        var startTime = LocalTime.now();
         log.info("Starting Processing csv file {}", startTime);
         CardTransaction cardTransaction = null;
-        File file = new File(getFileName());
-        FileInputStream inputStream = new FileInputStream(file);
-        try (Scanner sc = new Scanner(inputStream, StandardCharsets.UTF_8)) {
+        var file = new File(getFileName());
+        var inputStream = new FileInputStream(file);
+        try (var sc = new Scanner(inputStream, StandardCharsets.UTF_8)) {
             while (sc.hasNextLine()) {
                 String line = sc.nextLine();
                 cardTransaction = this.cardTransactionMapper.cardTransactionMapper(line);
@@ -47,10 +47,10 @@ public class CSVFileProcessor extends FileProcessor {
             try {
                 inputStream.close();
             } catch (Exception e) {
-                e.printStackTrace();
+                log.error("error while closing input stream", e);
             }
         }
-        LocalTime endTime = LocalTime.now();
+        var endTime = LocalTime.now();
         log.info("ending Processing csv file {}", endTime);
         log.info("Total Time Taken {}", endTime.getSecond() - startTime.getSecond());
         return true;
