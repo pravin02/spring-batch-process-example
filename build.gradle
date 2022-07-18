@@ -1,6 +1,7 @@
 plugins {
 	id 'org.springframework.boot' version '2.7.1'
 	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+	id "org.sonarqube" version "3.4.0.2513"
 	id 'java'
 }
 
@@ -16,6 +17,18 @@ configurations {
 
 repositories {
 	mavenCentral()
+}
+
+sonarqube {
+	properties {
+		property "sonar.sourceEncoding", "UTF-8"
+		property "sonar.projectKey", "${appName}"
+		property "sonar.orgnization", "PKCorp"
+		property "sonar.host.url", "${sonarHost}"
+		property "sonar.verbose", "true"
+		property "sonar.login", "${sonarUser}"
+		property "sonar.password", "${sonarPassword}"
+	}
 }
 
 dependencies {
