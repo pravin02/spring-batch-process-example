@@ -12,10 +12,10 @@ public class CardTransactionMapper {
 
     public CardTransaction cardTransactionMapper(String line) {
         log.info(line);
-        CardTransaction cardTransaction = new CardTransaction();
-        StringTokenizer stringTokenizer = new StringTokenizer(line, ",");
-        for (int i = 0; stringTokenizer.hasMoreTokens(); i++) {
-            String token = stringTokenizer.nextToken();
+        var cardTransaction = new CardTransaction();
+        var stringTokenizer = new StringTokenizer(line, ",");
+        for (var i = 0; stringTokenizer.hasMoreTokens(); i++) {
+            var token = stringTokenizer.nextToken();
             mapTokenToTransaction(i, cardTransaction, token);
         }
         return cardTransaction;
